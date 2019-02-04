@@ -8,9 +8,15 @@ import sys
 import logging
 from . import conversion
 from copy import deepcopy
-from string import split
 from six.moves import range
 logging.basicConfig(level=logging.DEBUG,format='%(levelname)s %(message)s')
+
+def split(s, o=None):
+    if o is None:
+        return s.split()
+    else:
+        return s.split(o)
+
 
         
 def write_cov(lsqr,i):

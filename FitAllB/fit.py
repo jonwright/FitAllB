@@ -6,7 +6,7 @@ from . import write_output
 from . import reject
 import fcn
 import time
-from six.moves import range
+from six.moves import range, reload_module
 try:
     from iminuit import Minuit
 except ImportError:
@@ -42,7 +42,7 @@ class fit_minuit():
                                 "epsaa%s" %i,"epsbb%s" %i,"epscc%s" %i,"epsbc%s" %i,"epsac%s" %i,"epsab%s" %i])
 
         #refinement update
-        reload(fcn)
+        reload_module(fcn)
         self.m = Minuit(fcn.FCN,errordef=1,pedantic=False,print_level=-1,**self.inp.fitarg)
         try:
             self.m.values = self.inp.values
@@ -365,7 +365,7 @@ def grain_values(lsqr):
         from . import build_fcn
         build_fcn.FCN(lsqr.inp)
         import fcn
-        reload(fcn)
+        reload_module(fcn)
         # save values before making a new lsqr of minuit
 #        temp1 = deepcopy(lsqr.m.values)        
 #        temp2 = deepcopy(lsqr.m.errors)        
@@ -577,7 +577,7 @@ def refine(inp,killfile=None):
         from FitAllB import build_fcn
         build_fcn.FCN(inp)
         import fcn
-        reload(fcn)
+        reload_module(fcn)
         # minuit fitting
         from FitAllB import fit
         lsqr = fit.fit_minuit(inp)

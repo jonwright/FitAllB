@@ -6,7 +6,6 @@
 from __future__ import absolute_import
 from __future__ import print_function
 import ImageD11.columnfile as ic
-from string import split
 import sys, os 
 from . import write_output 
 from . import conversion
@@ -22,6 +21,11 @@ except ImportError:
     from minuit import Minuit
 from copy import deepcopy
 
+def split(s, o=None):
+    if o is None:
+        return s.split()
+    else:
+        return s.split(o)
 
 logging.basicConfig(level=logging.DEBUG,format='%(levelname)s %(message)s')
 

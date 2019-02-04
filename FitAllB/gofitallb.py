@@ -125,5 +125,9 @@ def run(options):
         
     # program ends here after deleting fcn.py and fcn.pyc
     print('\nNormal termination of FitAllB')
-    os.remove('%s/fcn.py' % far.fit['direc'])
-    os.remove('%s/fcn.pyc' % far.fit['direc'])
+    if 1:
+        print("\nBeware, keeping fcn.py file around")
+    else:
+        print("\nRemove fcn.py file from",far.fit['direc'])
+        os.remove('%s/fcn.py' % far.fit['direc'])
+        os.remove('%s/fcn.pyc' % far.fit['direc'])

@@ -1,11 +1,11 @@
 from __future__ import absolute_import
-from __future__ import print_function
+from __future__ import print_function, division
 import numpy as n
 from xfab import tools
 from polyxsim import reflections
 from copy import deepcopy
 import time
-from six.moves import range
+from six.moves import range, reload_module
 try:
     from iminuit import Minuit
 except ImportError:
@@ -188,7 +188,7 @@ def mean_ia(inp,limit,only=None):
         from . import build_fcn
         build_fcn.FCN(inp)
         import fcn
-        reload(fcn)
+        reload_module(fcn)
 
         delete = 0
         for i in range(inp.no_grains):
@@ -229,7 +229,7 @@ def mean_ia_old(inp,limit,only=None):
         from . import build_fcn
         build_fcn.FCN(inp)
         import fcn
-        reload(fcn)
+        reload_module(fcn)
 
         for i in range(inp.no_grains):
             if i+1 in inp.fit['skip']:
@@ -415,8 +415,8 @@ def residual(inp,limit,only=None):
         from . import build_fcn
         build_fcn.FCN(inp)
         #refinement update
-        import fcn
-        reload(fcn)
+        import fcn        
+        reload_module(fcn)
         for i in range(inp.no_grains):
             if i+1 in inp.fit['skip']:
                 pass
@@ -628,7 +628,7 @@ def mad(data,reject,limit):
             for j in range(len(data)):
                 maddata.append(abs(data[j]-medi))
             maddata.sort()
-            mad = limit*maddata[len(maddata)/2]
+            mad = limit*maddata[len(maddata)//2]
             for j in range(len(data)-1,-1,-1):
                 if data[j] < medi-mad or data[j] > medi+mad:
                     reject.append(data.pop(j))
